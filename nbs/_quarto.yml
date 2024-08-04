@@ -1,11 +1,16 @@
 project:
   type: website
+  preview:
+    port: 3000
+    browser: false
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: 
+        - cosmo
+        - custom.scss
     toc: true
+    toc-depth: 4
 
 website:
   twitter-card: true
@@ -17,4 +22,4 @@ website:
   sidebar:
     style: floating
 
-metadata-files: [nbdev.yml, sidebar.yml]
+metadata-files: [nbdev.yml]

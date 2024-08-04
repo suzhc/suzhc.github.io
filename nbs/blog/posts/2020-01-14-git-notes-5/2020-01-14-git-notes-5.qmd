@@ -1,0 +1,32 @@
+---
+title: Git学习手记(五):自定义
+date: 2020-01-14
+categories: [code, git]
+---
+
+# 自定义忽略特殊文件
+
+在实际使用的过程中，有很多情况是需要git忽略文件夹中的某些文件的，比如编译生成的可执行文件.exe，这是可以编写.gitignore文件以达到此目的。
+
+GitHub官网上给出了示例[https://github.com/github/gitignore](https://github.com/github/gitignore)
+
+然后将gitignore文件提交
+```
+git add .\.gitignore
+git commit -m &quot;add .gitignore&quot;</code></pre></td>
+```
+
+如果需要强制提交，加上-f参数
+```
+git add -f test.exe
+```
+# 自定义配置指令别名
+
+用st代替status
+```
+git config --global alias.st status
+```
+em...
+```
+git config --global alias.lg log
+```

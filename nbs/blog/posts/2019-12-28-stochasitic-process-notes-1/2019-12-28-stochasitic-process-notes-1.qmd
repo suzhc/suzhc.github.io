@@ -1,0 +1,77 @@
+---
+title: 应用随机过程笔记（一）：随机过程的定义
+date: 2019-12-28
+categories: [数学, 随机过程]
+---
+
+
+# 随机过程的定义
+
+一个随机过程，即是一族随机变量，即对于每一个$t \in
+T$，$X(t)$是一个随机变量。
+
+
+T是可数集，则称X是离散时间过程；
+
+T是连续统，则称X是连续时间过程。
+
+**定义**（随机过程）
+
+设 $(\Omega, \mathcal{F}, \mathbb{P})$ 是概率空间，$(E, \mathcal{E})$ 是可测空间，$T$ 是指标集，如果对任何 $t \in T$，$X_{t}$ 是 $(\Omega,\mathcal{F})$ 到 $(E, \mathcal{E})$ 上的可测映射，则称 $X=\lbrace{X_{t} ; t \in T\rbrace}$ 是 ${\Omega,\mathcal{F},\mathbb{P}}$ 上的以 $E$ 为状态空间的随机过程。
+
+在连续时间随机过程中，称其有：
+
+独立增量：若对 $t{0}<t_{1}<\dots<t_{n}$，随机变量 $X\lbrace(t_{1}\rbrace)-X\lbrace(t_{0}\rbrace), X\lbrace(t_{2}\rbrace)-X\lbrace(t_{1}\rbrace), \cdots, X\lbrace(t_{n}\rbrace)-X\lbrace(t_{n-1}\rbrace)$相互独立。
+
+平稳增量：$X(t+s)-X(t)$对一切$t$有相同的分布。
+
+# 随机过程的有限维分布
+
+称$F_{t}(x)=P{X(t) \leq x}$，$x \in R$，为${X(t), t \in T}$的一维分布函数。
+
+称$\lbrace{F_{t}(x), \quad t \in T\rbrace}$为以为分布函数族。
+
+n维随机变量的分布函数记为\
+$$\
+F_{t_{1}, t_{2}, \dots ,t_{n}}\lbrace(x_{1}, x_{2}, \cdots
+x_{n}\rbrace)=P\lbrace{X\lbrace(t_{1}\rbrace) \leq x_{1},
+X\lbrace(t_{2}\rbrace) \leq x_{2}, \cdots
+X\lbrace(t_{n}\rbrace) \leq x_{n}\rbrace} \quad\
+x_{i} \in R, i=1,2, \cdots n\
+$$\
+称其为${X(t), t \in T}$的n维分布函数。
+
+称$\lbrace{F_{t_{1}, t_{2}, \cdots, t_{n}}\lbrace(x_{1}, x_{2}, \cdots x_{n}\rbrace) ; t_{1}, t_{2}, \cdots t_{n} \in T\rbrace}$称为n维分布函数族。
+
+有限维分布函数族满足：
+
+1.  横向相容（其意义为t的顺序不影响n维分布函数）
+2.  纵向相容
+
+# 均值函数和协方差函数
+
+*图片*
+
+**定义** （二阶矩过程）
+
+随即过程${X(t), t \in T}$,如果对每一$t \in
+T$，$E\lbrace[X^{2}(t)\rbrace]$都存在，则称其维二阶矩过程。
+
+二阶矩过程的均值函数和自相关函数总是存在。
+
+# 一些随机过程的分类
+
+**定义**
+
+（正态过程）$\lbrace(X_{t_{1}}, \cdots, X_{t_{n}}\rbrace)$服从正态分布
+
+（宽平稳过程）X是二阶矩过程，任意t，$\mu_{X}(t)$为常数，$C_{X}(t,s)$只是时间差&s-t&的函数。
+
+（严平稳过程）满足
+（1）所有$X_{t}$同分布；（2）对任何$n\>=2$，任何$t_1,\cdots,t_n \in T,\lbrace(X_{t_{1}},\cdots,X_{t_{n}}\rbrace)$的分布只与时间差$t_{2}-t_{1}, \cdots, t_{n}-t_{n-1}$有关，而与时间的起点$t_{1}$无关。
+
+**定义**
+
+（平稳增量过程） $X{t}-X{s}$（增量）的分布仅与时间差有段\
+（独立增量过程）增量相互独立\
+（平稳独立增量过程）既平稳又独立

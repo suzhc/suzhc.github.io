@@ -1,0 +1,90 @@
+---
+title: Git学习手记(三):分支管理 
+date: 2019-12-24
+categories: [code, git]
+---
+
+
+
+在Git中使用不同分支进行不同类型的开发是十分必要的。
+
+默认的一切操作都是在master分支下。
+
+创建新的分支的命令：
+
+```
+git branch dev
+```
+*（新的分支的名称为dev）*
+
+切换到dev分支上：
+
+```
+git switch dev
+```
+*（新版本git支持switch，旧版本使用checkout，switch便于理解）*
+
+查看分支列表：
+```
+git branch
+```
+合并dev分支到当前分支：
+```
+git merge dev
+```
+*（注意此时应在master分支下）*
+
+删除dev分支：
+```
+git branch -d dev
+```
+制造一个分支冲突\
+首先新建一个分支feature，编辑（并add+commit），再回到master分支，编辑（并add+commit）（注意与上一个分支不同），此时合并feature分支，会发生冲突，冲突信息\
+*tupian*
+
+此时查看文件内容，会发现已列出各分支修改的内容，修改内容为feature分支编辑后的内容，add+commit，此时可以合并feature分支。
+
+当合并分支时，加上 --no-ff 参数可以禁用Fast
+forward模式。这样，当分支合并时就会同时提交一个commit，可以加上-m参数，添加信息。
+
+在真实的团队开发中，一般不在master分支上进行操作，每个人都有属于自己的dev分支，并时时合并到主dev分支上，当有完成度高的版本时，合并到master分支上。
+
+创建远程origin库的dev分支到本地
+```
+git checkout -b dev origin
+```
+临时保存当前文档到git的命令：
+```
+git stash
+```
+恢复stash的命令：
+```
+git stash pop #删除stash中的内容
+git stash apply #保留stash中的内容
+```
+如果保存过多个，可以通过命令：
+```
+git stash list
+```
+查看stash列表，pop后跟名字来指定恢复哪一个
+
+复制一个特定的提交到当前分支命令：
+```
+git cherry-pick 4c805e2
+```
+*（4c805e2是特定的提交的名字）*
+
+_注：当新建分支没有被合并就删除是需要用参数大写字母D进行删除 _
+
+多人合作的流程：\
+1、首先使用命令`git push origin dev`推送自己的dev分支\
+2、如果推送失败，说明远程库已更新，先使用命令`git pull`把远程库pull下来合并\
+3、如果合并有冲突，解决冲突，并在本地提交\
+4、此时`git push origin dev`就能成功\
+（注意如果pull不成功，说明本地分支和远程分支没有建立连接，使用命令：
+```
+git branch --set-upstream-to=origin/dev dev
+```
+参考：
+
+1. [https://www.liaoxuefeng.com/wiki/896043488029600](https://www.liaoxuefeng.com/wiki/896043488029600)

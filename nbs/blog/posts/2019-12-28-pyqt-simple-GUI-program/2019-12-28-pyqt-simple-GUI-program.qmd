@@ -1,0 +1,41 @@
+---
+title: 使用PyQt创建一个简单的窗体程序
+date: 2019-12-28
+categories: [code, python, GUI, PyQt]
+---
+
+
+**1、 pip安装PyQt5**
+
+打开命令行，输入指令
+```
+python -m pip install PyQt5
+python -m pip install pyqt5-tools
+```
+![](1.webp)\
+打开PythonIDLE，输入代码，验证是否安装成功
+```
+import PyQt5
+```
+![](2.webp)
+
+**2、 简单使用**
+输入代码
+```
+print(site.getsitepackage())
+```
+可得到Python包的安装位置\
+![](3.webp)\
+打开以上路径，并找到pyqt5_tools文件夹，打开designer.exe\
+![](4.webp)\
+绘制一个简单窗体，保存为一个后缀名为.ui的文件\
+![](5.webp)\
+再Python安装路径中找到Scripts文件夹，利用cmd打开该文件夹，输入以下指令将刚刚保存的.ui文件转换为.py文件\
+![](6.webp)\
+打开，并在代码文件中添加以下语句\
+![](7.webp)\
+保存，用Python打开\
+![](8.webp)\
+
+
+*一篇很久以前写的笔记，本来想着能够熟练使用PyQt，然后在今年写一个自己满意的带图形界面的小软件，现在看来没有实现，哈哈*

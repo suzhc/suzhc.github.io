@@ -2,8 +2,8 @@ project:
   output-dir: _docs
 
 website:
-  title: "blog_tools"
-  site-url: "https://suzhc.github.io/blog_tool"
+  title: "Su Zhao"
+  site-url: "https://suzhc.github.io/suzhc.github.io"
   description: "Blog, and a bunch of blog tools"
   repo-branch: main
   repo-url: "https://github.com/suzhc/suzhc.github.io"

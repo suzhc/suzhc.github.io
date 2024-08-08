@@ -1,0 +1,47 @@
+---
+title: "如何优雅地为Python项目创建requirements.txt"
+categories: [code, python]
+date: 2024-07-10
+---
+
+当一个项目存在复杂依赖时，一个 requirements.txt 能够极大地简化他人运行这个项目是，所需的工作。这个文件，也是现代 Python 项目中的标配。
+
+如何方便且合理地创建 requirements.txt 呢？
+
+当然，你可以将你用到的软件包一个一个地写到文件中去：
+
+```
+matplotlib
+pandas
+numpy
+...
+json
+```
+
+对于一些个人的 mini project，有这样的一个简单 requirements.txt 文件，基本就够了，而且因为是自己一个一个包名敲进去的，对于这个项目的依赖项也会非常清楚。但是，当依赖的软件包稍微多一些，或者对于版本有具体要求，这样显然是不行的。
+
+所以，我们可以把当前 Python 环境下的所有软件包，导出到 requirements.txt 文件中。命令如下：
+
+```
+pip freeze > requirements.txt
+```
+
+这样有一个问题，就是上述命令只会导出你使用 pip 安装的一系列软件包。并且，在很多情况下，如果我们的 Python 环境管理并不是为单一项目进行的时候（比如我有很多机器学习分析的项目，都使用了一个环境），就有可能导出许多当前项目并不需要的软件包。这时，我们可以是用 pipreqs 导出专门针对当前项目的 requirements.txt。
+
+首先，安装 pipreqs，
+
+```
+pip install pipreqs
+```
+
+然后运行
+
+```
+pipreqs /path/to/your/project
+```
+
+即可将生成好的 requirements.txt 保存到你的项目路径下。
+
+# 参考
+
+1. https://github.com/bndr/pipreqs

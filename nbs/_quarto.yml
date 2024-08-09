@@ -7,8 +7,8 @@ project:
 format:
   html:
     theme: 
-        - cosmo
         - custom.scss
+        - yeti
     toc: true
     toc-depth: 4
 

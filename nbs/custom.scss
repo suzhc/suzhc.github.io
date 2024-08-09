@@ -8,6 +8,12 @@ $nav-link-hover-color: $light-green !default;
 $link-color: rgba(104, 196, 104, 70) !default;
 
 div.sourceCode > iframe {
-    border: #ff0000;
-    margin-bottom: 10em;
+    border: 2px solid #ff0000 !important; /* Thicker red border for better visibility */
+    border-radius: 8px !important; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow for depth */
+    margin-bottom: 10em !important; /* Maintain bottom margin */
+    padding: 1em !important; /* Add padding inside the iframe for content spacing */
+    width: 100% !important; /* Make the iframe responsive */
+    max-width: 800px !important; /* Set a maximum width for larger screens */
+    background-color: #ffffff !important; /* Optional: Set a white background for the iframe */
 }

@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Su Zhao"
-  site-url: "https://suzhc.github.io/suzhc.github.io"
+  site-url: "https://suzhc.github.io"
   description: "Blog, and a bunch of blog tools"
   repo-branch: main
   repo-url: "https://github.com/suzhc/suzhc.github.io"

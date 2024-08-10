@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Su Zhao</title>
+<link>https://suzhc.github.io/suzhc.github.io/</link>
+<atom:link href="https://suzhc.github.io/suzhc.github.io/index.xml" rel="self" type="application/rss+xml"/>
+<description>Blog, and a bunch of blog tools</description>
+<generator>quarto-1.5.56</generator>
+<lastBuildDate>Wed, 10 Jul 2024 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>如何优雅地为Python项目创建requirements.txt</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>当一个项目存在复杂依赖时，一个 requirements.txt 能够极大地简化他人运行这个项目是，所需的工作。这个文件，也是现代 Python 项目中的标配。</p>
+<p>如何方便且合理地创建 requirements.txt 呢？</p>
+<p>当然，你可以将你用到的软件包一个一个地写到文件中去：</p>
+<pre><code>matplotlib
+pandas
+numpy
+...
+json</code></pre>
+<p>对于一些个人的 mini project，有这样的一个简单 requirements.txt 文件，基本就够了，而且因为是自己一个一个包名敲进去的，对于这个项目的依赖项也会非常清楚。但是，当依赖的软件包稍微多一些，或者对于版本有具体要求，这样显然是不行的。</p>
+<p>所以，我们可以把当前 Python 环境下的所有软件包，导出到 requirements.txt 文件中。命令如下：</p>
+<pre><code>pip freeze &gt; requirements.txt</code></pre>
+<p>这样有一个问题，就是上述命令只会导出你使用 pip 安装的一系列软件包。并且，在很多情况下，如果我们的 Python 环境管理并不是为单一项目进行的时候（比如我有很多机器学习分析的项目，都使用了一个环境），就有可能导出许多当前项目并不需要的软件包。这时，我们可以是用 pipreqs 导出专门针对当前项目的 requirements.txt。</p>
+<p>首先，安装 pipreqs，</p>
+<pre><code>pip install pipreqs</code></pre>
+<p>然后运行</p>
+<pre><code>pipreqs /path/to/your/project</code></pre>
+<p>即可将生成好的 requirements.txt 保存到你的项目路径下。</p>
+<section id="参考" class="level1">
+<h1>参考</h1>
+<ol type="1">
+<li>https://github.com/bndr/pipreqs</li>
+</ol>
+
+
+</section>
+
+ ]]></description>
+  <category>code</category>
+  <category>python</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html</guid>
+  <pubDate>Wed, 10 Jul 2024 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>CT 基本原理手记</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>X射线在穿过不同的物质时，会有不同的衰减速率。假设某种物质的X射线衰减因子是μ，那么X射线的强度在穿过该物质的前后关系为： <img src="https://latex.codecogs.com/png.latex?%5C%0AI=I_%7B0%7D%20e%5E%7B-%5Cmu%20L%7D%5C%0A"><br>
+其中，<img src="https://latex.codecogs.com/png.latex?I_0">为入射的<img src="https://latex.codecogs.com/png.latex?X">射线的强度，<img src="https://latex.codecogs.com/png.latex?I">为出射的<img src="https://latex.codecogs.com/png.latex?X">射线强度，<img src="https://latex.codecogs.com/png.latex?L">为<img src="https://latex.codecogs.com/png.latex?X">射线穿过该物质的长度。</p>
+<p>X射线可以得到物体的二维平面信息，CT的成像原理是，在得到多个角度的二维图像信息后，通过合适的算法即可得到物体的三维信息。</p>
+<p>将物体抽象为一个2*2的矩阵，从各个角度对其投影</p>
+<p>！图</p>
+<p>上图可以清晰简单的看到得到的投影结果。对其作逆投影，即将得到的投影信息在对应方向上相加</p>
+<p>！图</p>
+<p>然后，可以通过以下的计算得到矩阵的内部信息<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0A%5Cleft(%5C%0A%5Cleft(%5C%0A%5Cbegin%7Barray%7D%7Bcc%7D%5C%0A32%20&amp;%2023%20%5C%5C%0A26%20&amp;%2038%20%5C%5C%0A%5Cend%7Barray%7D%5C%0A%5Cright)%5C%0A-(10+7)%5C%0A%5Cright)%5C%0A/%5C%0A%5Cleft(4-1%5Cright)%5C%0A=%5Cleft(%5C%0A%5Cbegin%7Barray%7D%7Bcc%7D%5C%0A5%20&amp;%202%20%5C%5C%0A3%20&amp;%207%20%5C%5C%0A%5Cend%7Barray%7D%5C%0A%5Cright)%5C%0A"></p>
+<section id="radon变换" class="level1">
+<h1>Radon变换</h1>
+<p><img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2020-04-15-CT-principles-notes/CT_3.png" class="img-fluid"></p>
+<p>如图所示，假设物体上每一点对射线的衰减程度为函数<img src="https://latex.codecogs.com/png.latex?f(x,y)">，相当于在每一个方向上，都可以得到物体在此方向上的”厚度”。根据所得到的数据，即可求出物体在每一点上的衰减程度。</p>
+<p>求”厚度”可以在数学上表述为一种线积分，当直线<img src="https://latex.codecogs.com/png.latex?L">穿过<img src="https://latex.codecogs.com/png.latex?f(x,y)">，在连续状态下，所对应的强度就是函数<img src="https://latex.codecogs.com/png.latex?f(x,y)">在直线L上的线积分：<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Ag_%7BL%7D=%5Cint_%7BL%7D%20f(x,%20y)%20%5Cmathrm%7Bd%7D%20s%5C%0A"><br>
+线L的方程为<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Ay=kx+b%5C%0A"><br>
+假设线L与y轴的夹角为theta，直线L也可以表示为<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Axcos%7B%5Ctheta%7D+ysin%7B%5Ctheta%7D=%5Crho,%20%5Cquad%20%5Cquad%20%5Crho=bsin%7B%5Ctheta%7D%5C%0A"><br>
+于是：<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Ag(%5Crho,%20%5Ctheta)=%5Cint_%7B-%5Cinfty%7D%5E%7B%5Cinfty%7D%0A%5Cint_%7B-%5Cinfty%7D%5E%7B%5Cinfty%7D%20f(x,%20y)%20%5Cdelta(x%20%5Ccos%20%5Ctheta+y%20%5Csin%0A%5Ctheta-%5Crho)%20d%20x%20d%20y%5C%0A"><br>
+其中<img src="https://latex.codecogs.com/png.latex?%5Cdelta">是冲激函数。除非<img src="https://latex.codecogs.com/png.latex?%5Cdelta">的参量为0，否则上式的右边为零，它指出积分只沿着<img src="https://latex.codecogs.com/png.latex?xcos%7B%5Ctheta%7D+ysin%7B%5Ctheta%7D=%5Crho">计算。</p>
+<p>在离散状态下，上式变为<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Ag(%5Crho,%20%5Ctheta)=%5Csum_%7Bx=0%7D%5E%7BM-1%7D%20%5Csum_%7By=0%7D%5E%7BN-1%7D%20f(x,%20y)%0A%5Cdelta(x%20%5Ccos%20%5Ctheta+y%20%5Csin%20%5Ctheta-%5Crho)%5C%0A"></p>
+<p>沿xy平面任意一条直线的线积分的公式，称之为Radon变换。Radon变换<img src="https://latex.codecogs.com/png.latex?g(%5Crho,%5Ctheta)">以<img src="https://latex.codecogs.com/png.latex?%5Crho,%5Ctheta">作为直线坐标显示为一幅图像时，结果称之为正弦图。下图为一个矩形的正弦图</p>
+</section>
+<section id="从投影得到三维信息" class="level1">
+<h1>从投影得到三维信息</h1>
+<p>从投影中得到三维信息，其过程是反投影每一个投影，然后对反投影求和产生一幅图像。堆积所有的结果图像得到物体的三维信息。</p>
+<p>对于一个固定旋转值的投影，可以得到如下表达式：<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Af*%7B%5Ctheta_%7Bk%7D%7D(x,%20y)=g%5Cleft(%5Crho,%20%5Ctheta_%7Bk%7D%5Cright)=g%5Cleft(x%0A%5Ccos%20%5Ctheta_%7Bk%7D+y%20%5Csin%20%5Ctheta_%7Bk%7D,%20%5Ctheta_%7Bk%7D%5Cright)%5C%0A"><br>
+显然，这一公式对于任意值均成立，更一般地，<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Af*%7B%5Ctheta%7D(x,%20y)=g(x%20%5Ccos%20%5Ctheta+y%20%5Csin%20%5Ctheta,%20%5Ctheta)%5C%0A"><br>
+通过对所有反投影得到的图像积分，得到最终结果：<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Af(x,%20y)=%5Cint_%7B0%7D%5E%7B%5Cpi%7D%20f_%7B%5Ctheta%7D(x,%20y)%20%5Cmathrm%7Bd%7D%20%5Ctheta%5C%0A"><br>
+离散状态下，上式为：<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0Af(x,%20y)=%5Csum_%7B%5Ctheta=0%7D%5E%7B%5Cpi%7D%20f_%7B%5Ctheta%7D(x,%20y)%5C%0A"><br>
+!图</p>
+
+
+</section>
+
+ ]]></description>
+  <category>医学图像</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html</guid>
+  <pubDate>Wed, 15 Apr 2020 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>应用随机过程笔记（三）：Markov链</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p><strong>Markov性</strong></p>
+<p>直观的说，Markov性的意思就是，未来事件的状态至于当前状态有关，与过去状态无关。</p>
+<p>更一般的定义：<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0A%5Cforall%20k%20%5Cgeq%201,%20%5Cforall%20n_%7B0%7D%20%3C%20n_%7B1%7D%20%3C%20%5Cldots%20%3C%20n_%7Bk+1%7D,%0A%5Cforall%20i_%7B0%7D,%20i_%7B1%7D,%20%5Cldots%20i_%7Bk-1%7D,%20i,%20j%5C%0A"></p>
+<p>都有</p>
+<p><strong>Markov链的定义</strong></p>
+<p>如果<img src="https://latex.codecogs.com/png.latex?%7BX_%7Bn%7D;%20n=0,1,2,%0A...%7D">是状态离散的随机过程，并且具有Markov性，则称其是Markov链。</p>
+<p><strong>时齐的Markov链</strong></p>
+<p>如果对任何状态i,j，<img src="https://latex.codecogs.com/png.latex?P%5Cleft(X_%7Bn+1%7D=j%20%5C%7C%0AX_%7Bn%7D=i%5Cright)">不依赖于n，则称其是时齐的Markov链。</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5C%0Ap_%7Bi%20j%7D:=P%5Cleft(X_%7Bn+1%7D=j%20%5C%7C%20X_%7Bn%7D=i%5Cright)%5C%0A"></p>
+<p>成为从i到j的一步转移概率<br>
+<strong>C—K方程</strong></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5C%0Ap_%7Bi%20j%7D(s,%20s+u+v)=%5Csum_%7Bk%7D%20p_%7Bi%20k%7D(s,%20s+u)%20p_%7Bk%20j%7D(s+u,%20s+u+v)%5C%0A"><br>
+<img src="https://github.com/zhaozzz-160/My_Article_Image/blob/master/%E5%BA%9431.png?raw=true" class="img-fluid"></p>
+<p><strong>状态的分类</strong></p>
+<p>若状态i和状态j可以互相到达，则称i和j是互通的。</p>
+<p>我们把可以互通的状态称为一个类（因为其具有传递性）。</p>
+<p>计算从状态i到其本身的n步转移概率，把大于0的”n”作为一个集合，求其最大公约数，称为状态i的周期，如果最大公约数大于1，则称i是周期的；等于1，则称是非周期的。</p>
+<p>对于状态i和j，记<img src="https://latex.codecogs.com/png.latex?f_%7Bij%7D%5E%7B(n)%7D">从i出发经过n步后首次到达j的概率。令<img src="https://latex.codecogs.com/png.latex?f_%7Bij%7D=%5Csum_n=1%5E%7Binfnity%7D%0Af_%7Bij%7D%5E%7B(n)%7D">，若<img src="https://latex.codecogs.com/png.latex?f_%7Bjj%7D=1">，称j为常返状态；<img src="https://latex.codecogs.com/png.latex?f_%7Bjj%7D%3C1">，称为非常返状态。</p>
+<p>再定义<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0A$%5Cmu_%7Bi%7D=%5Csum_%7Bn=1%7D%5E%7B%5Cinfty%7D%20n%20f_%7Bii%7D%5E%7B(n)%7D$%5C%0A"><br>
+表示从i出发，在到达i所需要的平均步数，如果其小于无穷，则称其为正常返状态；等于无穷，则称其为零常返状态。</p>
+
+
+
+ ]]></description>
+  <category>数学</category>
+  <category>随机过程</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html</guid>
+  <pubDate>Mon, 20 Jan 2020 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Git学习手记(五):自定义</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2020-01-14-git-notes-5/2020-01-14-git-notes-5.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="自定义忽略特殊文件" class="level1">
+<h1>自定义忽略特殊文件</h1>
+<p>在实际使用的过程中，有很多情况是需要git忽略文件夹中的某些文件的，比如编译生成的可执行文件.exe，这是可以编写.gitignore文件以达到此目的。</p>
+<p>GitHub官网上给出了示例<a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a></p>
+<p>然后将gitignore文件提交</p>
+<pre><code>git add .\.gitignore
+git commit -m &amp;quot;add .gitignore&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;</code></pre>
+<p>如果需要强制提交，加上-f参数</p>
+<pre><code>git add -f test.exe</code></pre>
+</section>
+<section id="自定义配置指令别名" class="level1">
+<h1>自定义配置指令别名</h1>
+<p>用st代替status</p>
+<pre><code>git config --global alias.st status</code></pre>
+<p>em…</p>
+<pre><code>git config --global alias.lg log</code></pre>
+
+
+</section>
+
+ ]]></description>
+  <category>code</category>
+  <category>git</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2020-01-14-git-notes-5/2020-01-14-git-notes-5.html</guid>
+  <pubDate>Tue, 14 Jan 2020 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>应用随机过程笔记（一）：随机过程的定义</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-stochasitic-process-notes-1/2019-12-28-stochasitic-process-notes-1.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="随机过程的定义" class="level1">
+<h1>随机过程的定义</h1>
+<p>一个随机过程，即是一族随机变量，即对于每一个<img src="https://latex.codecogs.com/png.latex?t%20%5Cin%0AT">，<img src="https://latex.codecogs.com/png.latex?X(t)">是一个随机变量。</p>
+<p>T是可数集，则称X是离散时间过程；</p>
+<p>T是连续统，则称X是连续时间过程。</p>
+<p><strong>定义</strong>（随机过程）</p>
+<p>设 <img src="https://latex.codecogs.com/png.latex?(%5COmega,%20%5Cmathcal%7BF%7D,%20%5Cmathbb%7BP%7D)"> 是概率空间，<img src="https://latex.codecogs.com/png.latex?(E,%20%5Cmathcal%7BE%7D)"> 是可测空间，<img src="https://latex.codecogs.com/png.latex?T"> 是指标集，如果对任何 <img src="https://latex.codecogs.com/png.latex?t%20%5Cin%20T">，<img src="https://latex.codecogs.com/png.latex?X_%7Bt%7D"> 是 <img src="https://latex.codecogs.com/png.latex?(%5COmega,%5Cmathcal%7BF%7D)"> 到 <img src="https://latex.codecogs.com/png.latex?(E,%20%5Cmathcal%7BE%7D)"> 上的可测映射，则称 <img src="https://latex.codecogs.com/png.latex?X=%5Clbrace%7BX_%7Bt%7D%20;%20t%20%5Cin%20T%5Crbrace%7D"> 是 <img src="https://latex.codecogs.com/png.latex?%7B%5COmega,%5Cmathcal%7BF%7D,%5Cmathbb%7BP%7D%7D"> 上的以 <img src="https://latex.codecogs.com/png.latex?E"> 为状态空间的随机过程。</p>
+<p>在连续时间随机过程中，称其有：</p>
+<p>独立增量：若对 <img src="https://latex.codecogs.com/png.latex?t%7B0%7D%3Ct_%7B1%7D%3C%5Cdots%3Ct_%7Bn%7D">，随机变量 <img src="https://latex.codecogs.com/png.latex?X%5Clbrace(t_%7B1%7D%5Crbrace)-X%5Clbrace(t_%7B0%7D%5Crbrace),%20X%5Clbrace(t_%7B2%7D%5Crbrace)-X%5Clbrace(t_%7B1%7D%5Crbrace),%20%5Ccdots,%20X%5Clbrace(t_%7Bn%7D%5Crbrace)-X%5Clbrace(t_%7Bn-1%7D%5Crbrace)">相互独立。</p>
+<p>平稳增量：<img src="https://latex.codecogs.com/png.latex?X(t+s)-X(t)">对一切<img src="https://latex.codecogs.com/png.latex?t">有相同的分布。</p>
+</section>
+<section id="随机过程的有限维分布" class="level1">
+<h1>随机过程的有限维分布</h1>
+<p>称<img src="https://latex.codecogs.com/png.latex?F_%7Bt%7D(x)=P%7BX(t)%20%5Cleq%20x%7D">，<img src="https://latex.codecogs.com/png.latex?x%20%5Cin%20R">，为<img src="https://latex.codecogs.com/png.latex?%7BX(t),%20t%20%5Cin%20T%7D">的一维分布函数。</p>
+<p>称<img src="https://latex.codecogs.com/png.latex?%5Clbrace%7BF_%7Bt%7D(x),%20%5Cquad%20t%20%5Cin%20T%5Crbrace%7D">为以为分布函数族。</p>
+<p>n维随机变量的分布函数记为<br>
+<img src="https://latex.codecogs.com/png.latex?%5C%0AF_%7Bt_%7B1%7D,%20t_%7B2%7D,%20%5Cdots%20,t_%7Bn%7D%7D%5Clbrace(x_%7B1%7D,%20x_%7B2%7D,%20%5Ccdots%0Ax_%7Bn%7D%5Crbrace)=P%5Clbrace%7BX%5Clbrace(t_%7B1%7D%5Crbrace)%20%5Cleq%20x_%7B1%7D,%0AX%5Clbrace(t_%7B2%7D%5Crbrace)%20%5Cleq%20x_%7B2%7D,%20%5Ccdots%0AX%5Clbrace(t_%7Bn%7D%5Crbrace)%20%5Cleq%20x_%7Bn%7D%5Crbrace%7D%20%5Cquad%5C%0Ax_%7Bi%7D%20%5Cin%20R,%20i=1,2,%20%5Ccdots%20n%5C%0A"><br>
+称其为<img src="https://latex.codecogs.com/png.latex?%7BX(t),%20t%20%5Cin%20T%7D">的n维分布函数。</p>
+<p>称<img src="https://latex.codecogs.com/png.latex?%5Clbrace%7BF_%7Bt_%7B1%7D,%20t_%7B2%7D,%20%5Ccdots,%20t_%7Bn%7D%7D%5Clbrace(x_%7B1%7D,%20x_%7B2%7D,%20%5Ccdots%20x_%7Bn%7D%5Crbrace)%20;%20t_%7B1%7D,%20t_%7B2%7D,%20%5Ccdots%20t_%7Bn%7D%20%5Cin%20T%5Crbrace%7D">称为n维分布函数族。</p>
+<p>有限维分布函数族满足：</p>
+<ol type="1">
+<li>横向相容（其意义为t的顺序不影响n维分布函数）</li>
+<li>纵向相容</li>
+</ol>
+</section>
+<section id="均值函数和协方差函数" class="level1">
+<h1>均值函数和协方差函数</h1>
+<p><em>图片</em></p>
+<p><strong>定义</strong> （二阶矩过程）</p>
+<p>随即过程<img src="https://latex.codecogs.com/png.latex?%7BX(t),%20t%20%5Cin%20T%7D">,如果对每一<img src="https://latex.codecogs.com/png.latex?t%20%5Cin%0AT">，<img src="https://latex.codecogs.com/png.latex?E%5Clbrace%5BX%5E%7B2%7D(t)%5Crbrace%5D">都存在，则称其维二阶矩过程。</p>
+<p>二阶矩过程的均值函数和自相关函数总是存在。</p>
+</section>
+<section id="一些随机过程的分类" class="level1">
+<h1>一些随机过程的分类</h1>
+<p><strong>定义</strong></p>
+<p>（正态过程）<img src="https://latex.codecogs.com/png.latex?%5Clbrace(X_%7Bt_%7B1%7D%7D,%20%5Ccdots,%20X_%7Bt_%7Bn%7D%7D%5Crbrace)">服从正态分布</p>
+<p>（宽平稳过程）X是二阶矩过程，任意t，<img src="https://latex.codecogs.com/png.latex?%5Cmu_%7BX%7D(t)">为常数，<img src="https://latex.codecogs.com/png.latex?C_%7BX%7D(t,s)">只是时间差&amp;s-t&amp;的函数。</p>
+<p>（严平稳过程）满足 （1）所有<img src="https://latex.codecogs.com/png.latex?X_%7Bt%7D">同分布；（2）对任何<img src="https://latex.codecogs.com/png.latex?n%5C%3E=2">，任何<img src="https://latex.codecogs.com/png.latex?t_1,%5Ccdots,t_n%20%5Cin%20T,%5Clbrace(X_%7Bt_%7B1%7D%7D,%5Ccdots,X_%7Bt_%7Bn%7D%7D%5Crbrace)">的分布只与时间差<img src="https://latex.codecogs.com/png.latex?t_%7B2%7D-t_%7B1%7D,%20%5Ccdots,%20t_%7Bn%7D-t_%7Bn-1%7D">有关，而与时间的起点<img src="https://latex.codecogs.com/png.latex?t_%7B1%7D">无关。</p>
+<p><strong>定义</strong></p>
+<p>（平稳增量过程） <img src="https://latex.codecogs.com/png.latex?X%7Bt%7D-X%7Bs%7D">（增量）的分布仅与时间差有段<br>
+（独立增量过程）增量相互独立<br>
+（平稳独立增量过程）既平稳又独立</p>
+
+
+</section>
+
+ ]]></description>
+  <category>数学</category>
+  <category>随机过程</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-stochasitic-process-notes-1/2019-12-28-stochasitic-process-notes-1.html</guid>
+  <pubDate>Sat, 28 Dec 2019 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>使用PyQt创建一个简单的窗体程序</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/2019-12-28-pyqt-simple-GUI-program.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p><strong>1、 pip安装PyQt5</strong></p>
+<p>打开命令行，输入指令</p>
+<pre><code>python -m pip install PyQt5
+python -m pip install pyqt5-tools</code></pre>
+<p><img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/1.webp" class="img-fluid"><br>
+打开PythonIDLE，输入代码，验证是否安装成功</p>
+<pre><code>import PyQt5</code></pre>
+<p><img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/2.webp" class="img-fluid"></p>
+<p><strong>2、 简单使用</strong> 输入代码</p>
+<pre><code>print(site.getsitepackage())</code></pre>
+<p>可得到Python包的安装位置<br>
+<img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/3.webp" class="img-fluid"><br>
+打开以上路径，并找到pyqt5_tools文件夹，打开designer.exe<br>
+<img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/4.webp" class="img-fluid"><br>
+绘制一个简单窗体，保存为一个后缀名为.ui的文件<br>
+<img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/5.webp" class="img-fluid"><br>
+再Python安装路径中找到Scripts文件夹，利用cmd打开该文件夹，输入以下指令将刚刚保存的.ui文件转换为.py文件<br>
+<img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/6.webp" class="img-fluid"><br>
+打开，并在代码文件中添加以下语句<br>
+<img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/7.webp" class="img-fluid"><br>
+保存，用Python打开<br>
+<img src="https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/8.webp" class="img-fluid"><br>
+</p>
+<p><em>一篇很久以前写的笔记，本来想着能够熟练使用PyQt，然后在今年写一个自己满意的带图形界面的小软件，现在看来没有实现，哈哈</em></p>
+
+
+
+ ]]></description>
+  <category>code</category>
+  <category>python</category>
+  <category>GUI</category>
+  <category>PyQt</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-28-pyqt-simple-GUI-program/2019-12-28-pyqt-simple-GUI-program.html</guid>
+  <pubDate>Sat, 28 Dec 2019 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Git学习手记(四):标签管理</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-25-git-notes-4/2019-12-25-git-notes-4.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>大部分时候，commit id较为复杂，故对于master分支上重要的版本，可以打上标签（tag），便于管理。</p>
+<p>为当前分支下最新的commit打上 v1.0 标签的命令：</p>
+<pre><code>git tag v1.0</code></pre>
+<p><em>（命令后加commit id即为为指定commit打上标签）</em><br>
+<em>（加上-m参数可以添加标签解释）</em></p>
+<p>查看标签列表命令：</p>
+<pre><code>git tag</code></pre>
+<p>查看指定标签信息的命令：</p>
+<pre><code>git show v1.0</code></pre>
+<p>删除指定标签命令：</p>
+<pre><code>git tag -d v0.9</code></pre>
+<p>将标签推送到远程库命令：</p>
+<pre><code>git push origin v1.0</code></pre>
+<p>一次性推送全部标签到远程库命令：</p>
+<pre><code>git push origin --tag</code></pre>
+<p>删除远程标签（假设已删除本地标签）命令：</p>
+<pre><code>git push origin :refs/tags/v0.9</code></pre>
+
+
+
+ ]]></description>
+  <category>code</category>
+  <category>git</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-25-git-notes-4/2019-12-25-git-notes-4.html</guid>
+  <pubDate>Wed, 25 Dec 2019 00:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Git学习手记(三):分支管理</title>
+  <link>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-24-git-notes-3/2019-12-24-git-notes-3.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>在Git中使用不同分支进行不同类型的开发是十分必要的。</p>
+<p>默认的一切操作都是在master分支下。</p>
+<p>创建新的分支的命令：</p>
+<pre><code>git branch dev</code></pre>
+<p><em>（新的分支的名称为dev）</em></p>
+<p>切换到dev分支上：</p>
+<pre><code>git switch dev</code></pre>
+<p><em>（新版本git支持switch，旧版本使用checkout，switch便于理解）</em></p>
+<p>查看分支列表：</p>
+<pre><code>git branch</code></pre>
+<p>合并dev分支到当前分支：</p>
+<pre><code>git merge dev</code></pre>
+<p><em>（注意此时应在master分支下）</em></p>
+<p>删除dev分支：</p>
+<pre><code>git branch -d dev</code></pre>
+<p>制造一个分支冲突<br>
+首先新建一个分支feature，编辑（并add+commit），再回到master分支，编辑（并add+commit）（注意与上一个分支不同），此时合并feature分支，会发生冲突，冲突信息<br>
+<em>tupian</em></p>
+<p>此时查看文件内容，会发现已列出各分支修改的内容，修改内容为feature分支编辑后的内容，add+commit，此时可以合并feature分支。</p>
+<p>当合并分支时，加上 –no-ff 参数可以禁用Fast forward模式。这样，当分支合并时就会同时提交一个commit，可以加上-m参数，添加信息。</p>
+<p>在真实的团队开发中，一般不在master分支上进行操作，每个人都有属于自己的dev分支，并时时合并到主dev分支上，当有完成度高的版本时，合并到master分支上。</p>
+<p>创建远程origin库的dev分支到本地</p>
+<pre><code>git checkout -b dev origin</code></pre>
+<p>临时保存当前文档到git的命令：</p>
+<pre><code>git stash</code></pre>
+<p>恢复stash的命令：</p>
+<pre><code>git stash pop #删除stash中的内容
+git stash apply #保留stash中的内容</code></pre>
+<p>如果保存过多个，可以通过命令：</p>
+<pre><code>git stash list</code></pre>
+<p>查看stash列表，pop后跟名字来指定恢复哪一个</p>
+<p>复制一个特定的提交到当前分支命令：</p>
+<pre><code>git cherry-pick 4c805e2</code></pre>
+<p><em>（4c805e2是特定的提交的名字）</em></p>
+<p><em>注：当新建分支没有被合并就删除是需要用参数大写字母D进行删除 </em></p>
+<p>多人合作的流程：<br>
+1、首先使用命令<code>git push origin dev</code>推送自己的dev分支<br>
+2、如果推送失败，说明远程库已更新，先使用命令<code>git pull</code>把远程库pull下来合并<br>
+3、如果合并有冲突，解决冲突，并在本地提交<br>
+4、此时<code>git push origin dev</code>就能成功<br>
+（注意如果pull不成功，说明本地分支和远程分支没有建立连接，使用命令：</p>
+<pre><code>git branch --set-upstream-to=origin/dev dev</code></pre>
+<p>参考：</p>
+<ol type="1">
+<li><a href="https://www.liaoxuefeng.com/wiki/896043488029600">https://www.liaoxuefeng.com/wiki/896043488029600</a></li>
+</ol>
+
+
+
+ ]]></description>
+  <category>code</category>
+  <category>git</category>
+  <guid>https://suzhc.github.io/suzhc.github.io/blog/posts/2019-12-24-git-notes-3/2019-12-24-git-notes-3.html</guid>
+  <pubDate>Tue, 24 Dec 2019 00:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

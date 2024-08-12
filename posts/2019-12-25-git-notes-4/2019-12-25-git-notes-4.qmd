@@ -8,33 +8,33 @@ categories: [code, git]
 大部分时候，commit id较为复杂，故对于master分支上重要的版本，可以打上标签（tag），便于管理。
 
 为当前分支下最新的commit打上 v1.0 标签的命令：
-```
+``` bash
 git tag v1.0
 ```
 *（命令后加commit id即为为指定commit打上标签）*\
 *（加上-m参数可以添加标签解释）*
 
 查看标签列表命令：
-```
+``` bash
 git tag
 ```
 查看指定标签信息的命令：
-```
+``` bash
 git show v1.0
 ```
 删除指定标签命令：
-```
+``` bash
 git tag -d v0.9
 ```
 将标签推送到远程库命令：
-```
+``` bash
 git push origin v1.0
 ```
 一次性推送全部标签到远程库命令：
-```
+``` bash
 git push origin --tag
 ```
 删除远程标签（假设已删除本地标签）命令：
-```
+``` bash
 git push origin :refs/tags/v0.9
 ```

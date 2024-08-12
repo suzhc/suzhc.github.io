@@ -12,30 +12,30 @@ categories: [code, git]
 
 创建新的分支的命令：
 
-```
+``` bash
 git branch dev
 ```
 *（新的分支的名称为dev）*
 
 切换到dev分支上：
 
-```
+``` bash
 git switch dev
 ```
 *（新版本git支持switch，旧版本使用checkout，switch便于理解）*
 
 查看分支列表：
-```
+``` bash
 git branch
 ```
 合并dev分支到当前分支：
-```
+``` bash
 git merge dev
 ```
 *（注意此时应在master分支下）*
 
 删除dev分支：
-```
+``` bash
 git branch -d dev
 ```
 制造一个分支冲突\
@@ -50,26 +50,26 @@ forward模式。这样，当分支合并时就会同时提交一个commit，可�
 在真实的团队开发中，一般不在master分支上进行操作，每个人都有属于自己的dev分支，并时时合并到主dev分支上，当有完成度高的版本时，合并到master分支上。
 
 创建远程origin库的dev分支到本地
-```
+``` bash
 git checkout -b dev origin
 ```
 临时保存当前文档到git的命令：
-```
+``` bash
 git stash
 ```
 恢复stash的命令：
-```
+``` bash
 git stash pop #删除stash中的内容
 git stash apply #保留stash中的内容
 ```
 如果保存过多个，可以通过命令：
-```
+``` bash
 git stash list
 ```
 查看stash列表，pop后跟名字来指定恢复哪一个
 
 复制一个特定的提交到当前分支命令：
-```
+``` bash
 git cherry-pick 4c805e2
 ```
 *（4c805e2是特定的提交的名字）*
@@ -82,7 +82,7 @@ _注：当新建分支没有被合并就删除是需要用参数大写字母D进
 3、如果合并有冲突，解决冲突，并在本地提交\
 4、此时`git push origin dev`就能成功\
 （注意如果pull不成功，说明本地分支和远程分支没有建立连接，使用命令：
-```
+``` bash
 git branch --set-upstream-to=origin/dev dev
 ```
 参考：

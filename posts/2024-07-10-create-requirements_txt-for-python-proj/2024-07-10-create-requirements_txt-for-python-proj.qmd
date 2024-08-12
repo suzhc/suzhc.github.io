@@ -10,7 +10,7 @@ date: 2024-07-10
 
 当然，你可以将你用到的软件包一个一个地写到文件中去：
 
-```
+``` blank
 matplotlib
 pandas
 numpy
@@ -22,7 +22,7 @@ json
 
 所以，我们可以把当前 Python 环境下的所有软件包，导出到 requirements.txt 文件中。命令如下：
 
-```
+``` bash
 pip freeze > requirements.txt
 ```
 
@@ -30,13 +30,13 @@ pip freeze > requirements.txt
 
 首先，安装 pipreqs，
 
-```
+``` bash
 pip install pipreqs
 ```
 
 然后运行
 
-```
+``` bash
 pipreqs /path/to/your/project
 ```
 

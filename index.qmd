@@ -1,14 +1,14 @@
 ---
-title: "My blogs"
+title: "Blog"
 listing:
-  contents: blog
+  contents: posts
+  sort: "date desc"
   type: default
   categories: true
   sort-ui: false
   filter-ui: false
-  feed: true
-  sort: "date desc"
-
 page-layout: full
 title-block-banner: true
 ---
+
+

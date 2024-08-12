@@ -11,22 +11,22 @@ categories: [code, git]
 GitHub官网上给出了示例[https://github.com/github/gitignore](https://github.com/github/gitignore)
 
 然后将gitignore文件提交
-```
+``` bash
 git add .\.gitignore
 git commit -m &quot;add .gitignore&quot;</code></pre></td>
 ```
 
 如果需要强制提交，加上-f参数
-```
+``` bash
 git add -f test.exe
 ```
 # 自定义配置指令别名
 
 用st代替status
-```
+``` bash
 git config --global alias.st status
 ```
 em...
-```
+``` bash
 git config --global alias.lg log
 ```

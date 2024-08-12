@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.6.4">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2020-04-15">
+<meta name="dcterms.date" content="2020-01-14">
 
-<title>CT 基本原理手记 – Su Zhao</title>
+<title>Git学习手记(五):自定义 – Su Zhao</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,25 +21,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,199 +102,96 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="CT 基本原理手记 – Su Zhao">
-<meta property="og:description" content="Blog, and a bunch of blog tools">
-<meta property="og:site_name" content="Su Zhao">
-<meta name="twitter:title" content="CT 基本原理手记 – Su Zhao">
-<meta name="twitter:description" content="Blog, and a bunch of blog tools">
-<meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Su Zhao</span>
     </a>
   </div>
-        <div class="quarto-navbar-tools tools-end">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/suzhc"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
 </div>
-          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">CT 基本原理手记</li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Git学习手记(五):自定义</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">code</div>
+                <div class="quarto-category">git</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 14, 2020</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#radon变换" id="toc-radon变换" class="nav-link active" data-scroll-target="#radon变换">Radon变换</a></li>
-  <li><a href="#从投影得到三维信息" id="toc-从投影得到三维信息" class="nav-link" data-scroll-target="#从投影得到三维信息">从投影得到三维信息</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/suzhc/suzhc.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">CT 基本原理手记</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">医学图像</div>
-  </div>
-  </div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 15, 2020</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<p>X射线在穿过不同的物质时，会有不同的衰减速率。假设某种物质的X射线衰减因子是μ，那么X射线的强度在穿过该物质的前后关系为： <span class="math display">\[\
-I=I_{0} e^{-\mu L}\
-\]</span><br>
-其中，<span class="math inline">\(I_0\)</span>为入射的<span class="math inline">\(X\)</span>射线的强度，<span class="math inline">\(I\)</span>为出射的<span class="math inline">\(X\)</span>射线强度，<span class="math inline">\(L\)</span>为<span class="math inline">\(X\)</span>射线穿过该物质的长度。</p>
-<p>X射线可以得到物体的二维平面信息，CT的成像原理是，在得到多个角度的二维图像信息后，通过合适的算法即可得到物体的三维信息。</p>
-<p>将物体抽象为一个2*2的矩阵，从各个角度对其投影</p>
-<p>！图</p>
-<p>上图可以清晰简单的看到得到的投影结果。对其作逆投影，即将得到的投影信息在对应方向上相加</p>
-<p>！图</p>
-<p>然后，可以通过以下的计算得到矩阵的内部信息<br>
-<span class="math display">\[\
-\left(\
-\left(\
-\begin{array}{cc}\
-32 &amp; 23 \\
-26 &amp; 38 \\
-\end{array}\
-\right)\
--(10+7)\
-\right)\
-/\
-\left(4-1\right)\
-=\left(\
-\begin{array}{cc}\
-5 &amp; 2 \\
-3 &amp; 7 \\
-\end{array}\
-\right)\
-\]</span></p>
-<section id="radon变换" class="level1">
-<h1>Radon变换</h1>
-<p><img src="CT_3.png" class="img-fluid"></p>
-<p>如图所示，假设物体上每一点对射线的衰减程度为函数<span class="math inline">\(f(x,y)\)</span>，相当于在每一个方向上，都可以得到物体在此方向上的”厚度”。根据所得到的数据，即可求出物体在每一点上的衰减程度。</p>
-<p>求”厚度”可以在数学上表述为一种线积分，当直线<span class="math inline">\(L\)</span>穿过<span class="math inline">\(f(x,y)\)</span>，在连续状态下，所对应的强度就是函数<span class="math inline">\(f(x,y)\)</span>在直线L上的线积分：<br>
-<span class="math display">\[\
-g_{L}=\int_{L} f(x, y) \mathrm{d} s\
-\]</span><br>
-线L的方程为<br>
-<span class="math display">\[\
-y=kx+b\
-\]</span><br>
-假设线L与y轴的夹角为theta，直线L也可以表示为<br>
-<span class="math display">\[\
-xcos{\theta}+ysin{\theta}=\rho, \quad \quad \rho=bsin{\theta}\
-\]</span><br>
-于是：<br>
-<span class="math display">\[\
-g(\rho, \theta)=\int_{-\infty}^{\infty}
-\int_{-\infty}^{\infty} f(x, y) \delta(x \cos \theta+y \sin
-\theta-\rho) d x d y\
-\]</span><br>
-其中<span class="math inline">\(\delta\)</span>是冲激函数。除非<span class="math inline">\(\delta\)</span>的参量为0，否则上式的右边为零，它指出积分只沿着<span class="math inline">\(xcos{\theta}+ysin{\theta}=\rho\)</span>计算。</p>
-<p>在离散状态下，上式变为<br>
-<span class="math display">\[\
-g(\rho, \theta)=\sum_{x=0}^{M-1} \sum_{y=0}^{N-1} f(x, y)
-\delta(x \cos \theta+y \sin \theta-\rho)\
-\]</span></p>
-<p>沿xy平面任意一条直线的线积分的公式，称之为Radon变换。Radon变换<span class="math inline">\(g(\rho,\theta)\)</span>以<span class="math inline">\(\rho,\theta\)</span>作为直线坐标显示为一幅图像时，结果称之为正弦图。下图为一个矩形的正弦图</p>
+<section id="自定义忽略特殊文件" class="level1">
+<h1>自定义忽略特殊文件</h1>
+<p>在实际使用的过程中，有很多情况是需要git忽略文件夹中的某些文件的，比如编译生成的可执行文件.exe，这是可以编写.gitignore文件以达到此目的。</p>
+<p>GitHub官网上给出了示例<a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a></p>
+<p>然后将gitignore文件提交</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .<span class="dt">\.</span>gitignore</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="kw">&amp;</span><span class="ex">quot</span><span class="kw">;</span><span class="ex">add</span> .gitignore<span class="kw">&amp;</span><span class="ex">quot</span><span class="kw">;</span><span class="op">&lt;</span>/code<span class="op">&gt;&lt;</span>/pre<span class="op">&gt;&lt;</span>/td<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>如果需要强制提交，加上-f参数</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">-f</span> test.exe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="从投影得到三维信息" class="level1">
-<h1>从投影得到三维信息</h1>
-<p>从投影中得到三维信息，其过程是反投影每一个投影，然后对反投影求和产生一幅图像。堆积所有的结果图像得到物体的三维信息。</p>
-<p>对于一个固定旋转值的投影，可以得到如下表达式：<br>
-<span class="math display">\[\
-f*{\theta_{k}}(x, y)=g\left(\rho, \theta_{k}\right)=g\left(x
-\cos \theta_{k}+y \sin \theta_{k}, \theta_{k}\right)\
-\]</span><br>
-显然，这一公式对于任意值均成立，更一般地，<br>
-<span class="math display">\[\
-f*{\theta}(x, y)=g(x \cos \theta+y \sin \theta, \theta)\
-\]</span><br>
-通过对所有反投影得到的图像积分，得到最终结果：<br>
-<span class="math display">\[\
-f(x, y)=\int_{0}^{\pi} f_{\theta}(x, y) \mathrm{d} \theta\
-\]</span><br>
-离散状态下，上式为：<br>
-<span class="math display">\[\
-f(x, y)=\sum_{\theta=0}^{\pi} f_{\theta}(x, y)\
-\]</span><br>
-!图</p>
+<section id="自定义配置指令别名" class="level1">
+<h1>自定义配置指令别名</h1>
+<p>用st代替status</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.st status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>em…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> alias.lg log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -358,7 +289,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/suzhc\.github\.io\/suzhc\.github\.io");
+      var filterRegex = new RegExp("https:\/\/suzhc\.github\.io\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -691,4 +622,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/suzhc/suzhc.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</body></html>

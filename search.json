@@ -1,72 +1,72 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "My blogs",
+    "objectID": "posts/2019-12-24-git-notes-3/2019-12-24-git-notes-3.html",
+    "href": "posts/2019-12-24-git-notes-3/2019-12-24-git-notes-3.html",
+    "title": "Git学习手记(三):分支管理",
     "section": "",
-    "text": "如何优雅地为Python项目创建requirements.txt\n\n\n\n\n\n\ncode\n\n\npython\n\n\n\n\n\n\n\n\n\nJul 10, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nCT 基本原理手记\n\n\n\n\n\n\n医学图像\n\n\n\n\n\n\n\n\n\nApr 15, 2020\n\n\n\n\n\n\n\n\n\n\n\n\n应用随机过程笔记（三）：Markov链\n\n\n\n\n\n\n数学\n\n\n随机过程\n\n\n\n\n\n\n\n\n\nJan 20, 2020\n\n\n\n\n\n\n\n\n\n\n\n\nGit学习手记(五):自定义\n\n\n\n\n\n\ncode\n\n\ngit\n\n\n\n\n\n\n\n\n\nJan 14, 2020\n\n\n\n\n\n\n\n\n\n\n\n\n应用随机过程笔记（一）：随机过程的定义\n\n\n\n\n\n\n数学\n\n\n随机过程\n\n\n\n\n\n\n\n\n\nDec 28, 2019\n\n\n\n\n\n\n\n\n\n\n\n\n使用PyQt创建一个简单的窗体程序\n\n\n\n\n\n\ncode\n\n\npython\n\n\nGUI\n\n\nPyQt\n\n\n\n\n\n\n\n\n\nDec 28, 2019\n\n\n\n\n\n\n\n\n\n\n\n\nGit学习手记(四):标签管理\n\n\n\n\n\n\ncode\n\n\ngit\n\n\n\n\n\n\n\n\n\nDec 25, 2019\n\n\n\n\n\n\n\n\n\n\n\n\nGit学习手记(三):分支管理\n\n\n\n\n\n\ncode\n\n\ngit\n\n\n\n\n\n\n\n\n\nDec 24, 2019\n\n\n\n\n\n\nNo matching items"
+    "text": "在Git中使用不同分支进行不同类型的开发是十分必要的。\n默认的一切操作都是在master分支下。\n创建新的分支的命令：\ngit branch dev\n（新的分支的名称为dev）\n切换到dev分支上：\ngit switch dev\n（新版本git支持switch，旧版本使用checkout，switch便于理解）\n查看分支列表：\ngit branch\n合并dev分支到当前分支：\ngit merge dev\n（注意此时应在master分支下）\n删除dev分支：\ngit branch -d dev\n制造一个分支冲突\n首先新建一个分支feature，编辑（并add+commit），再回到master分支，编辑（并add+commit）（注意与上一个分支不同），此时合并feature分支，会发生冲突，冲突信息\ntupian\n此时查看文件内容，会发现已列出各分支修改的内容，修改内容为feature分支编辑后的内容，add+commit，此时可以合并feature分支。\n当合并分支时，加上 –no-ff 参数可以禁用Fast forward模式。这样，当分支合并时就会同时提交一个commit，可以加上-m参数，添加信息。\n在真实的团队开发中，一般不在master分支上进行操作，每个人都有属于自己的dev分支，并时时合并到主dev分支上，当有完成度高的版本时，合并到master分支上。\n创建远程origin库的dev分支到本地\ngit checkout -b dev origin\n临时保存当前文档到git的命令：\ngit stash\n恢复stash的命令：\ngit stash pop #删除stash中的内容\ngit stash apply #保留stash中的内容\n如果保存过多个，可以通过命令：\ngit stash list\n查看stash列表，pop后跟名字来指定恢复哪一个\n复制一个特定的提交到当前分支命令：\ngit cherry-pick 4c805e2\n（4c805e2是特定的提交的名字）\n注：当新建分支没有被合并就删除是需要用参数大写字母D进行删除 \n多人合作的流程：\n1、首先使用命令git push origin dev推送自己的dev分支\n2、如果推送失败，说明远程库已更新，先使用命令git pull把远程库pull下来合并\n3、如果合并有冲突，解决冲突，并在本地提交\n4、此时git push origin dev就能成功\n（注意如果pull不成功，说明本地分支和远程分支没有建立连接，使用命令：\ngit branch --set-upstream-to=origin/dev dev\n参考：\n\nhttps://www.liaoxuefeng.com/wiki/896043488029600"
   },
   {
-    "objectID": "blog/posts/2020-01-14-git-notes-5/2020-01-14-git-notes-5.html",
-    "href": "blog/posts/2020-01-14-git-notes-5/2020-01-14-git-notes-5.html",
-    "title": "Git学习手记(五):自定义",
-    "section": "",
-    "text": "自定义忽略特殊文件\n在实际使用的过程中，有很多情况是需要git忽略文件夹中的某些文件的，比如编译生成的可执行文件.exe，这是可以编写.gitignore文件以达到此目的。\nGitHub官网上给出了示例https://github.com/github/gitignore\n然后将gitignore文件提交\ngit add .\\.gitignore\ngit commit -m &quot;add .gitignore&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;\n如果需要强制提交，加上-f参数\ngit add -f test.exe\n\n\n自定义配置指令别名\n用st代替status\ngit config --global alias.st status\nem…\ngit config --global alias.lg log"
-  },
-  {
-    "objectID": "blog/posts/2019-12-28-pyqt-simple-GUI-program/2019-12-28-pyqt-simple-GUI-program.html",
-    "href": "blog/posts/2019-12-28-pyqt-simple-GUI-program/2019-12-28-pyqt-simple-GUI-program.html",
-    "title": "使用PyQt创建一个简单的窗体程序",
-    "section": "",
-    "text": "1、 pip安装PyQt5\n打开命令行，输入指令\npython -m pip install PyQt5\npython -m pip install pyqt5-tools\n\n打开PythonIDLE，输入代码，验证是否安装成功\nimport PyQt5\n\n2、 简单使用 输入代码\nprint(site.getsitepackage())\n可得到Python包的安装位置\n\n打开以上路径，并找到pyqt5_tools文件夹，打开designer.exe\n\n绘制一个简单窗体，保存为一个后缀名为.ui的文件\n\n再Python安装路径中找到Scripts文件夹，利用cmd打开该文件夹，输入以下指令将刚刚保存的.ui文件转换为.py文件\n\n打开，并在代码文件中添加以下语句\n\n保存，用Python打开\n\n\n一篇很久以前写的笔记，本来想着能够熟练使用PyQt，然后在今年写一个自己满意的带图形界面的小软件，现在看来没有实现，哈哈"
-  },
-  {
-    "objectID": "blog/posts/2019-12-28-stochasitic-process-notes-1/2019-12-28-stochasitic-process-notes-1.html",
-    "href": "blog/posts/2019-12-28-stochasitic-process-notes-1/2019-12-28-stochasitic-process-notes-1.html",
-    "title": "应用随机过程笔记（一）：随机过程的定义",
-    "section": "",
-    "text": "随机过程的定义\n一个随机过程，即是一族随机变量，即对于每一个\\(t \\in\nT\\)，\\(X(t)\\)是一个随机变量。\nT是可数集，则称X是离散时间过程；\nT是连续统，则称X是连续时间过程。\n定义（随机过程）\n设 \\((\\Omega, \\mathcal{F}, \\mathbb{P})\\) 是概率空间，\\((E, \\mathcal{E})\\) 是可测空间，\\(T\\) 是指标集，如果对任何 \\(t \\in T\\)，\\(X_{t}\\) 是 \\((\\Omega,\\mathcal{F})\\) 到 \\((E, \\mathcal{E})\\) 上的可测映射，则称 \\(X=\\lbrace{X_{t} ; t \\in T\\rbrace}\\) 是 \\({\\Omega,\\mathcal{F},\\mathbb{P}}\\) 上的以 \\(E\\) 为状态空间的随机过程。\n在连续时间随机过程中，称其有：\n独立增量：若对 \\(t{0}&lt;t_{1}&lt;\\dots&lt;t_{n}\\)，随机变量 \\(X\\lbrace(t_{1}\\rbrace)-X\\lbrace(t_{0}\\rbrace), X\\lbrace(t_{2}\\rbrace)-X\\lbrace(t_{1}\\rbrace), \\cdots, X\\lbrace(t_{n}\\rbrace)-X\\lbrace(t_{n-1}\\rbrace)\\)相互独立。\n平稳增量：\\(X(t+s)-X(t)\\)对一切\\(t\\)有相同的分布。\n\n\n随机过程的有限维分布\n称\\(F_{t}(x)=P{X(t) \\leq x}\\)，\\(x \\in R\\)，为\\({X(t), t \\in T}\\)的一维分布函数。\n称\\(\\lbrace{F_{t}(x), \\quad t \\in T\\rbrace}\\)为以为分布函数族。\nn维随机变量的分布函数记为\n\\[\\\nF_{t_{1}, t_{2}, \\dots ,t_{n}}\\lbrace(x_{1}, x_{2}, \\cdots\nx_{n}\\rbrace)=P\\lbrace{X\\lbrace(t_{1}\\rbrace) \\leq x_{1},\nX\\lbrace(t_{2}\\rbrace) \\leq x_{2}, \\cdots\nX\\lbrace(t_{n}\\rbrace) \\leq x_{n}\\rbrace} \\quad\\\nx_{i} \\in R, i=1,2, \\cdots n\\\n\\]\n称其为\\({X(t), t \\in T}\\)的n维分布函数。\n称\\(\\lbrace{F_{t_{1}, t_{2}, \\cdots, t_{n}}\\lbrace(x_{1}, x_{2}, \\cdots x_{n}\\rbrace) ; t_{1}, t_{2}, \\cdots t_{n} \\in T\\rbrace}\\)称为n维分布函数族。\n有限维分布函数族满足：\n\n横向相容（其意义为t的顺序不影响n维分布函数）\n纵向相容\n\n\n\n均值函数和协方差函数\n图片\n定义 （二阶矩过程）\n随即过程\\({X(t), t \\in T}\\),如果对每一\\(t \\in\nT\\)，\\(E\\lbrace[X^{2}(t)\\rbrace]\\)都存在，则称其维二阶矩过程。\n二阶矩过程的均值函数和自相关函数总是存在。\n\n\n一些随机过程的分类\n定义\n（正态过程）\\(\\lbrace(X_{t_{1}}, \\cdots, X_{t_{n}}\\rbrace)\\)服从正态分布\n（宽平稳过程）X是二阶矩过程，任意t，\\(\\mu_{X}(t)\\)为常数，\\(C_{X}(t,s)\\)只是时间差&s-t&的函数。\n（严平稳过程）满足 （1）所有\\(X_{t}\\)同分布；（2）对任何\\(n\\&gt;=2\\)，任何\\(t_1,\\cdots,t_n \\in T,\\lbrace(X_{t_{1}},\\cdots,X_{t_{n}}\\rbrace)\\)的分布只与时间差\\(t_{2}-t_{1}, \\cdots, t_{n}-t_{n-1}\\)有关，而与时间的起点\\(t_{1}\\)无关。\n定义\n（平稳增量过程） \\(X{t}-X{s}\\)（增量）的分布仅与时间差有段\n（独立增量过程）增量相互独立\n（平稳独立增量过程）既平稳又独立"
-  },
-  {
-    "objectID": "blog/posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html",
-    "href": "blog/posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html",
-    "title": "如何优雅地为Python项目创建requirements.txt",
-    "section": "",
-    "text": "当一个项目存在复杂依赖时，一个 requirements.txt 能够极大地简化他人运行这个项目是，所需的工作。这个文件，也是现代 Python 项目中的标配。\n如何方便且合理地创建 requirements.txt 呢？\n当然，你可以将你用到的软件包一个一个地写到文件中去：\nmatplotlib\npandas\nnumpy\n...\njson\n对于一些个人的 mini project，有这样的一个简单 requirements.txt 文件，基本就够了，而且因为是自己一个一个包名敲进去的，对于这个项目的依赖项也会非常清楚。但是，当依赖的软件包稍微多一些，或者对于版本有具体要求，这样显然是不行的。\n所以，我们可以把当前 Python 环境下的所有软件包，导出到 requirements.txt 文件中。命令如下：\npip freeze &gt; requirements.txt\n这样有一个问题，就是上述命令只会导出你使用 pip 安装的一系列软件包。并且，在很多情况下，如果我们的 Python 环境管理并不是为单一项目进行的时候（比如我有很多机器学习分析的项目，都使用了一个环境），就有可能导出许多当前项目并不需要的软件包。这时，我们可以是用 pipreqs 导出专门针对当前项目的 requirements.txt。\n首先，安装 pipreqs，\npip install pipreqs\n然后运行\npipreqs /path/to/your/project\n即可将生成好的 requirements.txt 保存到你的项目路径下。\n\n参考\n\nhttps://github.com/bndr/pipreqs"
-  },
-  {
-    "objectID": "core.html",
-    "href": "core.html",
-    "title": "core",
-    "section": "",
-    "text": "source\n\ncreate_ipynb\n\n create_ipynb (path:str, base_path:str=None)\n\n根据一个名称（例如：“my-first-blog”）,创建对应地 post 文件夹，以及对应的文件\n\ncreate_ipynb('test', '/teamspace/studios/this_studio/suzhc.github.io')\n!tree -L 2 ../nbs/blog/posts\n\n../nbs/blog/posts\n├── 2019-12-24-git-notes-3\n│   └── 2019-12-24-git-notes-3.qmd\n├── 2019-12-25-git-notes-4\n│   └── 2019-12-25-git-notes-4.qmd\n├── 2019-12-28-pyqt-simple-GUI-program\n│   ├── 1.webp\n│   ├── 2.webp\n│   ├── 2019-12-28-pyqt-simple-GUI-program.qmd\n│   ├── 3.webp\n│   ├── 4.webp\n│   ├── 5.webp\n│   ├── 6.webp\n│   ├── 7.webp\n│   └── 8.webp\n├── 2019-12-28-stochasitic-process-notes-1\n│   └── 2019-12-28-stochasitic-process-notes-1.qmd\n├── 2020-01-14-git-notes-5\n│   └── 2020-01-14-git-notes-5.qmd\n├── 2020-01-20-stochasitic-process-3\n│   └── 2020-01-20-stochasitic-process-3.qmd\n├── 2020-04-15-CT-principles-notes\n│   ├── 2020-04-15-CT-principles-notes.qmd\n│   └── CT_3.png\n├── 2024-07-10-create-requirements_txt-for-python-proj\n│   └── 2024-07-10-create-requirements_txt-for-python-proj.qmd\n└── 2024-08-08-test\n    └── 2024-08-08-test.ipynb\n\n9 directories, 18 files"
-  },
-  {
-    "objectID": "blog/posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html",
-    "href": "blog/posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html",
-    "title": "CT 基本原理手记",
-    "section": "",
-    "text": "X射线在穿过不同的物质时，会有不同的衰减速率。假设某种物质的X射线衰减因子是μ，那么X射线的强度在穿过该物质的前后关系为： \\[\\\nI=I_{0} e^{-\\mu L}\\\n\\]\n其中，\\(I_0\\)为入射的\\(X\\)射线的强度，\\(I\\)为出射的\\(X\\)射线强度，\\(L\\)为\\(X\\)射线穿过该物质的长度。\nX射线可以得到物体的二维平面信息，CT的成像原理是，在得到多个角度的二维图像信息后，通过合适的算法即可得到物体的三维信息。\n将物体抽象为一个2*2的矩阵，从各个角度对其投影\n！图\n上图可以清晰简单的看到得到的投影结果。对其作逆投影，即将得到的投影信息在对应方向上相加\n！图\n然后，可以通过以下的计算得到矩阵的内部信息\n\\[\\\n\\left(\\\n\\left(\\\n\\begin{array}{cc}\\\n32 & 23 \\\\\n26 & 38 \\\\\n\\end{array}\\\n\\right)\\\n-(10+7)\\\n\\right)\\\n/\\\n\\left(4-1\\right)\\\n=\\left(\\\n\\begin{array}{cc}\\\n5 & 2 \\\\\n3 & 7 \\\\\n\\end{array}\\\n\\right)\\\n\\]\n\nRadon变换\n\n如图所示，假设物体上每一点对射线的衰减程度为函数\\(f(x,y)\\)，相当于在每一个方向上，都可以得到物体在此方向上的”厚度”。根据所得到的数据，即可求出物体在每一点上的衰减程度。\n求”厚度”可以在数学上表述为一种线积分，当直线\\(L\\)穿过\\(f(x,y)\\)，在连续状态下，所对应的强度就是函数\\(f(x,y)\\)在直线L上的线积分：\n\\[\\\ng_{L}=\\int_{L} f(x, y) \\mathrm{d} s\\\n\\]\n线L的方程为\n\\[\\\ny=kx+b\\\n\\]\n假设线L与y轴的夹角为theta，直线L也可以表示为\n\\[\\\nxcos{\\theta}+ysin{\\theta}=\\rho, \\quad \\quad \\rho=bsin{\\theta}\\\n\\]\n于是：\n\\[\\\ng(\\rho, \\theta)=\\int_{-\\infty}^{\\infty}\n\\int_{-\\infty}^{\\infty} f(x, y) \\delta(x \\cos \\theta+y \\sin\n\\theta-\\rho) d x d y\\\n\\]\n其中\\(\\delta\\)是冲激函数。除非\\(\\delta\\)的参量为0，否则上式的右边为零，它指出积分只沿着\\(xcos{\\theta}+ysin{\\theta}=\\rho\\)计算。\n在离散状态下，上式变为\n\\[\\\ng(\\rho, \\theta)=\\sum_{x=0}^{M-1} \\sum_{y=0}^{N-1} f(x, y)\n\\delta(x \\cos \\theta+y \\sin \\theta-\\rho)\\\n\\]\n沿xy平面任意一条直线的线积分的公式，称之为Radon变换。Radon变换\\(g(\\rho,\\theta)\\)以\\(\\rho,\\theta\\)作为直线坐标显示为一幅图像时，结果称之为正弦图。下图为一个矩形的正弦图\n\n\n从投影得到三维信息\n从投影中得到三维信息，其过程是反投影每一个投影，然后对反投影求和产生一幅图像。堆积所有的结果图像得到物体的三维信息。\n对于一个固定旋转值的投影，可以得到如下表达式：\n\\[\\\nf*{\\theta_{k}}(x, y)=g\\left(\\rho, \\theta_{k}\\right)=g\\left(x\n\\cos \\theta_{k}+y \\sin \\theta_{k}, \\theta_{k}\\right)\\\n\\]\n显然，这一公式对于任意值均成立，更一般地，\n\\[\\\nf*{\\theta}(x, y)=g(x \\cos \\theta+y \\sin \\theta, \\theta)\\\n\\]\n通过对所有反投影得到的图像积分，得到最终结果：\n\\[\\\nf(x, y)=\\int_{0}^{\\pi} f_{\\theta}(x, y) \\mathrm{d} \\theta\\\n\\]\n离散状态下，上式为：\n\\[\\\nf(x, y)=\\sum_{\\theta=0}^{\\pi} f_{\\theta}(x, y)\\\n\\]\n!图"
-  },
-  {
-    "objectID": "blog/posts/2019-12-25-git-notes-4/2019-12-25-git-notes-4.html",
-    "href": "blog/posts/2019-12-25-git-notes-4/2019-12-25-git-notes-4.html",
-    "title": "Git学习手记(四):标签管理",
-    "section": "",
-    "text": "大部分时候，commit id较为复杂，故对于master分支上重要的版本，可以打上标签（tag），便于管理。\n为当前分支下最新的commit打上 v1.0 标签的命令：\ngit tag v1.0\n（命令后加commit id即为为指定commit打上标签）\n（加上-m参数可以添加标签解释）\n查看标签列表命令：\ngit tag\n查看指定标签信息的命令：\ngit show v1.0\n删除指定标签命令：\ngit tag -d v0.9\n将标签推送到远程库命令：\ngit push origin v1.0\n一次性推送全部标签到远程库命令：\ngit push origin --tag\n删除远程标签（假设已删除本地标签）命令：\ngit push origin :refs/tags/v0.9"
-  },
-  {
-    "objectID": "blog/posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html",
-    "href": "blog/posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html",
+    "objectID": "posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html",
+    "href": "posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html",
     "title": "应用随机过程笔记（三）：Markov链",
     "section": "",
     "text": "Markov性\n直观的说，Markov性的意思就是，未来事件的状态至于当前状态有关，与过去状态无关。\n更一般的定义：\n\\[\\\n\\forall k \\geq 1, \\forall n_{0} &lt; n_{1} &lt; \\ldots &lt; n_{k+1},\n\\forall i_{0}, i_{1}, \\ldots i_{k-1}, i, j\\\n\\]\n都有\nMarkov链的定义\n如果\\({X_{n}; n=0,1,2,\n...}\\)是状态离散的随机过程，并且具有Markov性，则称其是Markov链。\n时齐的Markov链\n如果对任何状态i,j，\\(P\\left(X_{n+1}=j \\|\nX_{n}=i\\right)\\)不依赖于n，则称其是时齐的Markov链。\n\\[\\\np_{i j}:=P\\left(X_{n+1}=j \\| X_{n}=i\\right)\\\n\\]\n成为从i到j的一步转移概率\nC—K方程\n\\[\\\np_{i j}(s, s+u+v)=\\sum_{k} p_{i k}(s, s+u) p_{k j}(s+u, s+u+v)\\\n\\]\n\n状态的分类\n若状态i和状态j可以互相到达，则称i和j是互通的。\n我们把可以互通的状态称为一个类（因为其具有传递性）。\n计算从状态i到其本身的n步转移概率，把大于0的”n”作为一个集合，求其最大公约数，称为状态i的周期，如果最大公约数大于1，则称i是周期的；等于1，则称是非周期的。\n对于状态i和j，记\\(f_{ij}^{(n)}\\)从i出发经过n步后首次到达j的概率。令\\(f_{ij}=\\sum_n=1^{infnity}\nf_{ij}^{(n)}\\)，若\\(f_{jj}=1\\)，称j为常返状态；\\(f_{jj}&lt;1\\)，称为非常返状态。\n再定义\n\\[\\\n$\\mu_{i}=\\sum_{n=1}^{\\infty} n f_{ii}^{(n)}$\\\n\\]\n表示从i出发，在到达i所需要的平均步数，如果其小于无穷，则称其为正常返状态；等于无穷，则称其为零常返状态。"
   },
   {
-    "objectID": "blog/posts/2019-12-24-git-notes-3/2019-12-24-git-notes-3.html",
-    "href": "blog/posts/2019-12-24-git-notes-3/2019-12-24-git-notes-3.html",
-    "title": "Git学习手记(三):分支管理",
+    "objectID": "posts/2019-12-25-git-notes-4/2019-12-25-git-notes-4.html",
+    "href": "posts/2019-12-25-git-notes-4/2019-12-25-git-notes-4.html",
+    "title": "Git学习手记(四):标签管理",
     "section": "",
-    "text": "在Git中使用不同分支进行不同类型的开发是十分必要的。\n默认的一切操作都是在master分支下。\n创建新的分支的命令：\ngit branch dev\n（新的分支的名称为dev）\n切换到dev分支上：\ngit switch dev\n（新版本git支持switch，旧版本使用checkout，switch便于理解）\n查看分支列表：\ngit branch\n合并dev分支到当前分支：\ngit merge dev\n（注意此时应在master分支下）\n删除dev分支：\ngit branch -d dev\n制造一个分支冲突\n首先新建一个分支feature，编辑（并add+commit），再回到master分支，编辑（并add+commit）（注意与上一个分支不同），此时合并feature分支，会发生冲突，冲突信息\ntupian\n此时查看文件内容，会发现已列出各分支修改的内容，修改内容为feature分支编辑后的内容，add+commit，此时可以合并feature分支。\n当合并分支时，加上 –no-ff 参数可以禁用Fast forward模式。这样，当分支合并时就会同时提交一个commit，可以加上-m参数，添加信息。\n在真实的团队开发中，一般不在master分支上进行操作，每个人都有属于自己的dev分支，并时时合并到主dev分支上，当有完成度高的版本时，合并到master分支上。\n创建远程origin库的dev分支到本地\ngit checkout -b dev origin\n临时保存当前文档到git的命令：\ngit stash\n恢复stash的命令：\ngit stash pop #删除stash中的内容\ngit stash apply #保留stash中的内容\n如果保存过多个，可以通过命令：\ngit stash list\n查看stash列表，pop后跟名字来指定恢复哪一个\n复制一个特定的提交到当前分支命令：\ngit cherry-pick 4c805e2\n（4c805e2是特定的提交的名字）\n注：当新建分支没有被合并就删除是需要用参数大写字母D进行删除 \n多人合作的流程：\n1、首先使用命令git push origin dev推送自己的dev分支\n2、如果推送失败，说明远程库已更新，先使用命令git pull把远程库pull下来合并\n3、如果合并有冲突，解决冲突，并在本地提交\n4、此时git push origin dev就能成功\n（注意如果pull不成功，说明本地分支和远程分支没有建立连接，使用命令：\ngit branch --set-upstream-to=origin/dev dev\n参考：\n\nhttps://www.liaoxuefeng.com/wiki/896043488029600"
+    "text": "大部分时候，commit id较为复杂，故对于master分支上重要的版本，可以打上标签（tag），便于管理。\n为当前分支下最新的commit打上 v1.0 标签的命令：\ngit tag v1.0\n（命令后加commit id即为为指定commit打上标签）\n（加上-m参数可以添加标签解释）\n查看标签列表命令：\ngit tag\n查看指定标签信息的命令：\ngit show v1.0\n删除指定标签命令：\ngit tag -d v0.9\n将标签推送到远程库命令：\ngit push origin v1.0\n一次性推送全部标签到远程库命令：\ngit push origin --tag\n删除远程标签（假设已删除本地标签）命令：\ngit push origin :refs/tags/v0.9"
+  },
+  {
+    "objectID": "posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html",
+    "href": "posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html",
+    "title": "CT 基本原理手记",
+    "section": "",
+    "text": "X射线在穿过不同的物质时，会有不同的衰减速率。假设某种物质的X射线衰减因子是μ，那么X射线的强度在穿过该物质的前后关系为： \\[\\\nI=I_{0} e^{-\\mu L}\\\n\\]\n其中，\\(I_0\\)为入射的\\(X\\)射线的强度，\\(I\\)为出射的\\(X\\)射线强度，\\(L\\)为\\(X\\)射线穿过该物质的长度。\nX射线可以得到物体的二维平面信息，CT的成像原理是，在得到多个角度的二维图像信息后，通过合适的算法即可得到物体的三维信息。\n将物体抽象为一个2*2的矩阵，从各个角度对其投影\n！图\n上图可以清晰简单的看到得到的投影结果。对其作逆投影，即将得到的投影信息在对应方向上相加\n！图\n然后，可以通过以下的计算得到矩阵的内部信息\n\\[\\\n\\left(\\\n\\left(\\\n\\begin{array}{cc}\\\n32 & 23 \\\\\n26 & 38 \\\\\n\\end{array}\\\n\\right)\\\n-(10+7)\\\n\\right)\\\n/\\\n\\left(4-1\\right)\\\n=\\left(\\\n\\begin{array}{cc}\\\n5 & 2 \\\\\n3 & 7 \\\\\n\\end{array}\\\n\\right)\\\n\\]\n\nRadon变换\n\n如图所示，假设物体上每一点对射线的衰减程度为函数\\(f(x,y)\\)，相当于在每一个方向上，都可以得到物体在此方向上的”厚度”。根据所得到的数据，即可求出物体在每一点上的衰减程度。\n求”厚度”可以在数学上表述为一种线积分，当直线\\(L\\)穿过\\(f(x,y)\\)，在连续状态下，所对应的强度就是函数\\(f(x,y)\\)在直线L上的线积分：\n\\[\\\ng_{L}=\\int_{L} f(x, y) \\mathrm{d} s\\\n\\]\n线L的方程为\n\\[\\\ny=kx+b\\\n\\]\n假设线L与y轴的夹角为theta，直线L也可以表示为\n\\[\\\nxcos{\\theta}+ysin{\\theta}=\\rho, \\quad \\quad \\rho=bsin{\\theta}\\\n\\]\n于是：\n\\[\\\ng(\\rho, \\theta)=\\int_{-\\infty}^{\\infty}\n\\int_{-\\infty}^{\\infty} f(x, y) \\delta(x \\cos \\theta+y \\sin\n\\theta-\\rho) d x d y\\\n\\]\n其中\\(\\delta\\)是冲激函数。除非\\(\\delta\\)的参量为0，否则上式的右边为零，它指出积分只沿着\\(xcos{\\theta}+ysin{\\theta}=\\rho\\)计算。\n在离散状态下，上式变为\n\\[\\\ng(\\rho, \\theta)=\\sum_{x=0}^{M-1} \\sum_{y=0}^{N-1} f(x, y)\n\\delta(x \\cos \\theta+y \\sin \\theta-\\rho)\\\n\\]\n沿xy平面任意一条直线的线积分的公式，称之为Radon变换。Radon变换\\(g(\\rho,\\theta)\\)以\\(\\rho,\\theta\\)作为直线坐标显示为一幅图像时，结果称之为正弦图。下图为一个矩形的正弦图\n\n\n从投影得到三维信息\n从投影中得到三维信息，其过程是反投影每一个投影，然后对反投影求和产生一幅图像。堆积所有的结果图像得到物体的三维信息。\n对于一个固定旋转值的投影，可以得到如下表达式：\n\\[\\\nf*{\\theta_{k}}(x, y)=g\\left(\\rho, \\theta_{k}\\right)=g\\left(x\n\\cos \\theta_{k}+y \\sin \\theta_{k}, \\theta_{k}\\right)\\\n\\]\n显然，这一公式对于任意值均成立，更一般地，\n\\[\\\nf*{\\theta}(x, y)=g(x \\cos \\theta+y \\sin \\theta, \\theta)\\\n\\]\n通过对所有反投影得到的图像积分，得到最终结果：\n\\[\\\nf(x, y)=\\int_{0}^{\\pi} f_{\\theta}(x, y) \\mathrm{d} \\theta\\\n\\]\n离散状态下，上式为：\n\\[\\\nf(x, y)=\\sum_{\\theta=0}^{\\pi} f_{\\theta}(x, y)\\\n\\]\n!图"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "如何优雅地为Python项目创建requirements.txt\n\n\n\n\n\n\ncode\n\n\npython\n\n\n\n\n\n\n\n\n\nJul 10, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nCT 基本原理手记\n\n\n\n\n\n\n医学图像\n\n\n\n\n\n\n\n\n\nApr 15, 2020\n\n\n\n\n\n\n\n\n\n\n\n\n应用随机过程笔记（三）：Markov链\n\n\n\n\n\n\n数学\n\n\n随机过程\n\n\n\n\n\n\n\n\n\nJan 20, 2020\n\n\n\n\n\n\n\n\n\n\n\n\nGit学习手记(五):自定义\n\n\n\n\n\n\ncode\n\n\ngit\n\n\n\n\n\n\n\n\n\nJan 14, 2020\n\n\n\n\n\n\n\n\n\n\n\n\n应用随机过程笔记（一）：随机过程的定义\n\n\n\n\n\n\n数学\n\n\n随机过程\n\n\n\n\n\n\n\n\n\nDec 28, 2019\n\n\n\n\n\n\n\n\n\n\n\n\n使用PyQt创建一个简单的窗体程序\n\n\n\n\n\n\ncode\n\n\npython\n\n\nGUI\n\n\nPyQt\n\n\n\n\n\n\n\n\n\nDec 28, 2019\n\n\n\n\n\n\n\n\n\n\n\n\nGit学习手记(四):标签管理\n\n\n\n\n\n\ncode\n\n\ngit\n\n\n\n\n\n\n\n\n\nDec 25, 2019\n\n\n\n\n\n\n\n\n\n\n\n\nGit学习手记(三):分支管理\n\n\n\n\n\n\ncode\n\n\ngit\n\n\n\n\n\n\n\n\n\nDec 24, 2019\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "放上俺滴自拍"
+  },
+  {
+    "objectID": "posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html",
+    "href": "posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html",
+    "title": "如何优雅地为Python项目创建requirements.txt",
+    "section": "",
+    "text": "当一个项目存在复杂依赖时，一个 requirements.txt 能够极大地简化他人运行这个项目是，所需的工作。这个文件，也是现代 Python 项目中的标配。\n如何方便且合理地创建 requirements.txt 呢？\n当然，你可以将你用到的软件包一个一个地写到文件中去：\nmatplotlib\npandas\nnumpy\n...\njson\n对于一些个人的 mini project，有这样的一个简单 requirements.txt 文件，基本就够了，而且因为是自己一个一个包名敲进去的，对于这个项目的依赖项也会非常清楚。但是，当依赖的软件包稍微多一些，或者对于版本有具体要求，这样显然是不行的。\n所以，我们可以把当前 Python 环境下的所有软件包，导出到 requirements.txt 文件中。命令如下：\npip freeze &gt; requirements.txt\n这样有一个问题，就是上述命令只会导出你使用 pip 安装的一系列软件包。并且，在很多情况下，如果我们的 Python 环境管理并不是为单一项目进行的时候（比如我有很多机器学习分析的项目，都使用了一个环境），就有可能导出许多当前项目并不需要的软件包。这时，我们可以是用 pipreqs 导出专门针对当前项目的 requirements.txt。\n首先，安装 pipreqs，\npip install pipreqs\n然后运行\npipreqs /path/to/your/project\n即可将生成好的 requirements.txt 保存到你的项目路径下。\n\n参考\n\nhttps://github.com/bndr/pipreqs"
+  },
+  {
+    "objectID": "posts/2019-12-28-stochasitic-process-notes-1/2019-12-28-stochasitic-process-notes-1.html",
+    "href": "posts/2019-12-28-stochasitic-process-notes-1/2019-12-28-stochasitic-process-notes-1.html",
+    "title": "应用随机过程笔记（一）：随机过程的定义",
+    "section": "",
+    "text": "随机过程的定义\n一个随机过程，即是一族随机变量，即对于每一个\\(t \\in\nT\\)，\\(X(t)\\)是一个随机变量。\nT是可数集，则称X是离散时间过程；\nT是连续统，则称X是连续时间过程。\n定义（随机过程）\n设 \\((\\Omega, \\mathcal{F}, \\mathbb{P})\\) 是概率空间，\\((E, \\mathcal{E})\\) 是可测空间，\\(T\\) 是指标集，如果对任何 \\(t \\in T\\)，\\(X_{t}\\) 是 \\((\\Omega,\\mathcal{F})\\) 到 \\((E, \\mathcal{E})\\) 上的可测映射，则称 \\(X=\\lbrace{X_{t} ; t \\in T\\rbrace}\\) 是 \\({\\Omega,\\mathcal{F},\\mathbb{P}}\\) 上的以 \\(E\\) 为状态空间的随机过程。\n在连续时间随机过程中，称其有：\n独立增量：若对 \\(t{0}&lt;t_{1}&lt;\\dots&lt;t_{n}\\)，随机变量 \\(X\\lbrace(t_{1}\\rbrace)-X\\lbrace(t_{0}\\rbrace), X\\lbrace(t_{2}\\rbrace)-X\\lbrace(t_{1}\\rbrace), \\cdots, X\\lbrace(t_{n}\\rbrace)-X\\lbrace(t_{n-1}\\rbrace)\\)相互独立。\n平稳增量：\\(X(t+s)-X(t)\\)对一切\\(t\\)有相同的分布。\n\n\n随机过程的有限维分布\n称\\(F_{t}(x)=P{X(t) \\leq x}\\)，\\(x \\in R\\)，为\\({X(t), t \\in T}\\)的一维分布函数。\n称\\(\\lbrace{F_{t}(x), \\quad t \\in T\\rbrace}\\)为以为分布函数族。\nn维随机变量的分布函数记为\n\\[\\\nF_{t_{1}, t_{2}, \\dots ,t_{n}}\\lbrace(x_{1}, x_{2}, \\cdots\nx_{n}\\rbrace)=P\\lbrace{X\\lbrace(t_{1}\\rbrace) \\leq x_{1},\nX\\lbrace(t_{2}\\rbrace) \\leq x_{2}, \\cdots\nX\\lbrace(t_{n}\\rbrace) \\leq x_{n}\\rbrace} \\quad\\\nx_{i} \\in R, i=1,2, \\cdots n\\\n\\]\n称其为\\({X(t), t \\in T}\\)的n维分布函数。\n称\\(\\lbrace{F_{t_{1}, t_{2}, \\cdots, t_{n}}\\lbrace(x_{1}, x_{2}, \\cdots x_{n}\\rbrace) ; t_{1}, t_{2}, \\cdots t_{n} \\in T\\rbrace}\\)称为n维分布函数族。\n有限维分布函数族满足：\n\n横向相容（其意义为t的顺序不影响n维分布函数）\n纵向相容\n\n\n\n均值函数和协方差函数\n图片\n定义 （二阶矩过程）\n随即过程\\({X(t), t \\in T}\\),如果对每一\\(t \\in\nT\\)，\\(E\\lbrace[X^{2}(t)\\rbrace]\\)都存在，则称其维二阶矩过程。\n二阶矩过程的均值函数和自相关函数总是存在。\n\n\n一些随机过程的分类\n定义\n（正态过程）\\(\\lbrace(X_{t_{1}}, \\cdots, X_{t_{n}}\\rbrace)\\)服从正态分布\n（宽平稳过程）X是二阶矩过程，任意t，\\(\\mu_{X}(t)\\)为常数，\\(C_{X}(t,s)\\)只是时间差&s-t&的函数。\n（严平稳过程）满足 （1）所有\\(X_{t}\\)同分布；（2）对任何\\(n\\&gt;=2\\)，任何\\(t_1,\\cdots,t_n \\in T,\\lbrace(X_{t_{1}},\\cdots,X_{t_{n}}\\rbrace)\\)的分布只与时间差\\(t_{2}-t_{1}, \\cdots, t_{n}-t_{n-1}\\)有关，而与时间的起点\\(t_{1}\\)无关。\n定义\n（平稳增量过程） \\(X{t}-X{s}\\)（增量）的分布仅与时间差有段\n（独立增量过程）增量相互独立\n（平稳独立增量过程）既平稳又独立"
+  },
+  {
+    "objectID": "posts/2019-12-28-pyqt-simple-GUI-program/2019-12-28-pyqt-simple-GUI-program.html",
+    "href": "posts/2019-12-28-pyqt-simple-GUI-program/2019-12-28-pyqt-simple-GUI-program.html",
+    "title": "使用PyQt创建一个简单的窗体程序",
+    "section": "",
+    "text": "1、 pip安装PyQt5\n打开命令行，输入指令\npython -m pip install PyQt5\npython -m pip install pyqt5-tools\n\n打开PythonIDLE，输入代码，验证是否安装成功\nimport PyQt5\n\n2、 简单使用 输入代码\nprint(site.getsitepackage())\n可得到Python包的安装位置\n\n打开以上路径，并找到pyqt5_tools文件夹，打开designer.exe\n\n绘制一个简单窗体，保存为一个后缀名为.ui的文件\n\n再Python安装路径中找到Scripts文件夹，利用cmd打开该文件夹，输入以下指令将刚刚保存的.ui文件转换为.py文件\n\n打开，并在代码文件中添加以下语句\n\n保存，用Python打开\n\n\n一篇很久以前写的笔记，本来想着能够熟练使用PyQt，然后在今年写一个自己满意的带图形界面的小软件，现在看来没有实现，哈哈"
+  },
+  {
+    "objectID": "posts/2020-01-14-git-notes-5/2020-01-14-git-notes-5.html",
+    "href": "posts/2020-01-14-git-notes-5/2020-01-14-git-notes-5.html",
+    "title": "Git学习手记(五):自定义",
+    "section": "",
+    "text": "自定义忽略特殊文件\n在实际使用的过程中，有很多情况是需要git忽略文件夹中的某些文件的，比如编译生成的可执行文件.exe，这是可以编写.gitignore文件以达到此目的。\nGitHub官网上给出了示例https://github.com/github/gitignore\n然后将gitignore文件提交\ngit add .\\.gitignore\ngit commit -m &quot;add .gitignore&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;\n如果需要强制提交，加上-f参数\ngit add -f test.exe\n\n\n自定义配置指令别名\n用st代替status\ngit config --global alias.st status\nem…\ngit config --global alias.lg log"
   }
 ]

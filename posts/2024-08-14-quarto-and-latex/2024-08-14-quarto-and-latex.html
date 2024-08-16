@@ -177,8 +177,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Quarto 是一个文档系统，可以将用来生成 html、pdf 等多种文档，以及生成一个静态网站（本博客就是用 Quarto 生成的），或者生成一本在线电子书。详细的介绍可以参见<a href="https://quarto.org/">此链接</a>。下图是一个 Quarto 的文档生成流程： <img src="2024-08-14-quarto-and-latex_files/figure-html/57f3831f-8acb-49eb-bc22-38a1af7b8b39-1-72be21d4-4997-406b-a414-c831461c1cae.png" class="img-fluid" alt="image.png"></p>
-<section id="简单-md-文档生成-pdf" class="level1">
-<h1>简单 MD 文档生成 PDF</h1>
+<section id="简单-md-文档生成-pdf" class="level2">
+<h2 class="anchored" data-anchor-id="简单-md-文档生成-pdf">简单 MD 文档生成 PDF</h2>
 <div id="91b02aa4-527e-4ed8-b9b5-cbd6f12027c7" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>quarto install tinytex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -260,8 +260,8 @@ Output created: ../../_site/posts/2024-08-14-quarto-and-latex/simple_pdf.pdf
 </div>
 <p>可以看到，生成 pdf 文件是使用的 latex 引擎。</p>
 </section>
-<section id="在-md-文档中插入-latex-代码" class="level1">
-<h1>在 MD 文档中插入 latex 代码</h1>
+<section id="在-md-文档中插入-latex-代码" class="level2">
+<h2 class="anchored" data-anchor-id="在-md-文档中插入-latex-代码">在 MD 文档中插入 latex 代码</h2>
 <p>在文档中插入 latex 代码</p>
 <div id="9bab6224-cdea-4d24-9d61-9baf66fe77b4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>qmd <span class="op">=</span> <span class="vs">r'''</span></span>
@@ -305,8 +305,8 @@ Output created: ../../_site/posts/2024-08-14-quarto-and-latex/simple_pdf.pdf
 </figure>
 </div>
 </section>
-<section id="纯-latex-文档" class="level1">
-<h1>纯 latex 文档</h1>
+<section id="纯-latex-文档" class="level2">
+<h2 class="anchored" data-anchor-id="纯-latex-文档">纯 latex 文档</h2>
 <div id="a693fbfe-5785-465d-9922-b52312b3fc0a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>qmd <span class="op">=</span> <span class="vs">r'''</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="vs">---</span></span>

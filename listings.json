@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2024-08-14-quarto-and-latex/2024-08-14-quarto-and-latex.html",
       "/posts/2024-07-10-create-requirements_txt-for-python-proj/2024-07-10-create-requirements_txt-for-python-proj.html",
       "/posts/2020-04-15-CT-principles-notes/2020-04-15-CT-principles-notes.html",
       "/posts/2020-01-20-stochasitic-process-3/2020-01-20-stochasitic-process-3.html",
